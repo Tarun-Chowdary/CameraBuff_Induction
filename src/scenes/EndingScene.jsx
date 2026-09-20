@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CameraBuffLogo from '../components/CameraBuffLogo';
 import { EVENT } from '../data/event';
 import Instagram from '../components/InstagramIcon';
-import Ticket from '../components/Ticket';
 import useTicketDownload from '../hooks/useTicketDownload';
 import { Download, Loader2 } from 'lucide-react';
 
@@ -14,11 +13,10 @@ const QUOTES = [
 
 export default function EndingScene({ name, ticketId, onSound }) {
   const [step, setStep] = useState(0);
-  const ticketRef = useRef(null);
   const { downloading, error: downloadError, download } = useTicketDownload();
 
   const handleDownload = async () => {
-    const ok = await download(ticketRef.current, name);
+    const ok = await download(name, ticketId);
     if (ok) onSound?.('shutter');
   };
 
@@ -40,11 +38,6 @@ export default function EndingScene({ name, ticketId, onSound }) {
 
       <div className="filmstrip filmstrip-bleed top-0" />
       <div className="filmstrip filmstrip-bleed bottom-0" />
-
-      {/* Off-screen ticket, kept mounted so it can be captured for download */}
-      <div style={{ position: 'absolute', left: '-9999px', top: 0, width: 900 }} aria-hidden="true">
-        <Ticket name={name} ticketId={ticketId} show={10} forwardedRef={ticketRef} />
-      </div>
 
       <div className="max-w-lg w-full">
         {step >= 0 && (

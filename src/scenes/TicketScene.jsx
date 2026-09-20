@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Ticket from '../components/Ticket';
 import { EVENT } from '../data/event';
 import { Download, Loader2 } from 'lucide-react';
@@ -12,7 +12,6 @@ export default function TicketScene({ name, ticketId, onNext, onSound }) {
   const [step, setStep] = useState(1);
   const [showActions, setShowActions] = useState(false);
   const [flashed, setFlashed] = useState(true);
-  const ticketRef = useRef(null);
   const { downloading, error: downloadError, download } = useTicketDownload();
 
   // Projector flash on entry
@@ -45,7 +44,7 @@ export default function TicketScene({ name, ticketId, onNext, onSound }) {
   }, [showActions, onNext]);
 
   const handleDownload = async () => {
-    const ok = await download(ticketRef.current, name);
+    const ok = await download(name, ticketId);
     if (ok) onSound?.('shutter');
   };
 
@@ -75,7 +74,7 @@ export default function TicketScene({ name, ticketId, onNext, onSound }) {
 
       {/* Ticket */}
       <div className="w-full" style={{ boxSizing: 'border-box' }}>
-        <Ticket name={name} ticketId={ticketId} show={step} forwardedRef={ticketRef} />
+        <Ticket name={name} ticketId={ticketId} show={step} />
       </div>
 
       {/* Actions — no "continue" button; the reel just keeps rolling */}
