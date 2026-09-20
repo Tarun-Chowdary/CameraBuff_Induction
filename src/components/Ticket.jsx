@@ -31,29 +31,32 @@ export default function Ticket({ name, ticketId, show = 10, forwardedRef }) {
       }}
     >
       <div className="ticket-frame" style={{ width: '100%', boxSizing: 'border-box' }}>
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            boxSizing: 'border-box',
-            aspectRatio: '1931 / 814',
-            backgroundImage: `url(${ticketBg})`,
-            backgroundSize: '100% 100%',
-            backgroundRepeat: 'no-repeat',
-            overflow: 'hidden',
-            clipPath: `inset(${(1 - progress) * 100}% 0 0 0)`,
-            transition: 'clip-path 0.45s steps(8, end)',
-            filter: 'drop-shadow(0 18px 34px rgba(0,0,0,0.55))',
-          }}
-        >
-          {/* Name stamped onto the STARRING line */}
+        {/* Shadow lives on its own layer — mobile Safari can render an element
+            invisible when `filter` and `clip-path` share the same box. */}
+        <div style={{ width: '100%', filter: 'drop-shadow(0 18px 34px rgba(0,0,0,0.55))' }}>
           <div
-            className="absolute flex items-center justify-center px-2 text-center"
-            style={{ left: '19%', width: '60%', top: '52%', height: '10%' }}
+            style={{
+              position: 'relative',
+              width: '100%',
+              boxSizing: 'border-box',
+              aspectRatio: '1931 / 814',
+              backgroundImage: `url(${ticketBg})`,
+              backgroundSize: '100% 100%',
+              backgroundRepeat: 'no-repeat',
+              backgroundColor: '#E8D6AD',
+              clipPath: `inset(${(1 - progress) * 100}% 0 0 0)`,
+              transition: 'clip-path 0.45s steps(8, end)',
+            }}
           >
-            <span className={`font-poster ticket-name ${nameSizeClass}`}>
-              {displayName}
-            </span>
+            {/* Name stamped onto the STARRING line */}
+            <div
+              className="absolute flex items-center justify-center px-2 text-center"
+              style={{ left: '19%', width: '60%', top: '52%', height: '10%' }}
+            >
+              <span className={`font-poster ticket-name ${nameSizeClass}`}>
+                {displayName}
+              </span>
+            </div>
           </div>
         </div>
       </div>
