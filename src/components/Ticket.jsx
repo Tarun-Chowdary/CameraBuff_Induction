@@ -40,14 +40,29 @@ export default function Ticket({ name, ticketId, show = 10, forwardedRef }) {
               width: '100%',
               boxSizing: 'border-box',
               aspectRatio: '1931 / 814',
-              backgroundImage: `url(${ticketBg})`,
-              backgroundSize: '100% 100%',
-              backgroundRepeat: 'no-repeat',
               backgroundColor: '#E8D6AD',
               clipPath: `inset(${(1 - progress) * 100}% 0 0 0)`,
               transition: 'clip-path 0.45s steps(8, end)',
             }}
           >
+            {/* Real <img>, not a CSS background-image — html-to-image
+                reliably waits for and inlines <img> elements when capturing
+                on mobile Safari, where background-images often drop out. */}
+            <img
+              src={ticketBg}
+              alt=""
+              draggable={false}
+              crossOrigin="anonymous"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'fill',
+                display: 'block',
+              }}
+            />
+
             {/* Name stamped onto the STARRING line */}
             <div
               className="absolute flex items-center justify-center px-2 text-center"
