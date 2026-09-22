@@ -5,7 +5,7 @@ export const EVENT = {
   date: "23 SEPTEMBER 2026",
   shortDate: "23.09.2026",
   time: "5:00 PM",
-  venueLine1: "1ST FLOOR",
+  venueLine1: "3RD FLOOR",
   venueLine2: "STUDENT AMENITIES CENTER",
   institute: "IIEST SHIBPUR",
   tagline: "THIS IS JUST THE OPENING SCENE.",
